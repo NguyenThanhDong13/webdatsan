@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Đặt Sân Bóng</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f5f5f5;
+        }
+
+        header {
+            background: #198754;
+            color: white;
+            padding: 20px 10%;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            margin-right: 20px;
+            text-decoration: none;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 70px 20px;
+            background: white;
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            color: #198754;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .stadium {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .price {
+            color: #198754;
+            font-weight: bold;
+        }
+
+        button {
+            background: #198754;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>⚽ ĐẶT SÂN BÓNG</h1>
+
+    <nav>
+        <a href="/">Trang chủ</a>
+        <a href="#">Tìm sân</a>
+        <a href="#">Lịch đặt</a>
+        <a href="/admin/">Quản trị</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h2>Tìm và đặt sân bóng dễ dàng</h2>
+    <p>Xem lịch sân trống và đặt sân trực tuyến.</p>
+</section>
+
+<div class="container">
+
+    <h2>Danh sách sân bóng</h2>
+
+    {% for stadium in stadiums %}
+
+        <div class="stadium">
+            <h3>{{ stadium.name }}</h3>
+
+            <p>📍 {{ stadium.address }}</p>
+
+            <p>
+                Loại sân:
+                {{ stadium.get_field_type_display }}
+            </p>
+
+            <p class="price">
+                {{ stadium.price_per_hour }} VNĐ / giờ
+            </p>
+
+            <p>{{ stadium.description }}</p>
+
+            <a href="{% url 'stadium_detail' stadium.id %}">
+    <button>Xem lịch sân</button>
+</a>
+        </div>
+
+    {% empty %}
+
+        <div class="stadium">
+            <h3>Chưa có sân bóng</h3>
+            <p>Hãy thêm sân trong trang quản trị.</p>
+        </div>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
